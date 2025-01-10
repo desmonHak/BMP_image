@@ -38,15 +38,9 @@ void calc_image(BMP_t* image, uint32_t width, uint32_t height,
     const uint8_t const* data_raw, uint32_t size_data_raw,
     uint8_t** data_with_padding
 ) {
-    if (image->image_data == NULL) {
-        // assert
-    }
-    if (data_raw == NULL) {
-        // assert
-    }
-    if (data_with_padding == NULL) {
-        // assert
-    }
+    assert(data_raw != NULL);
+    assert(data_with_padding != NULL);
+
 
     // escritura de metadatos:
 
@@ -69,10 +63,8 @@ void calc_image(BMP_t* image, uint32_t width, uint32_t height,
     // crear el buffer para los datos con padding que seran escritos
     image->size_image_data = image->bytesPerRowWithPadding * height;
     *data_with_padding = calloc(image->size_image_data, sizeof(uint8_t));
+    assert(*data_with_padding != NULL);
 
-    if (*data_with_padding == NULL) {
-        // assert
-    }
     uint8_t* ptr_cpy_data = *data_with_padding;
 
     puts("!");
@@ -116,9 +108,8 @@ void print_image(BMP_t *image) {
 
 void write_image(const char *filename, BMP_t* image) {
     FILE* fd = fopen(filename, "wb");
-    if (fd == NULL) {
-        // assert
-    }
+    assert(fd != NULL);
+
     // escribir los metadatos de la imagen
     fwrite(&(image->image_metadata), sizeof(BMP_Image), 1, fd);
     fwrite(image->image_data, image->size_image_data, 1, fd);
