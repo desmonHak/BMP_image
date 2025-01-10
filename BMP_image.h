@@ -38,6 +38,7 @@
 
 #pragma pack(push, 1)
 
+#ifndef HeaderBMP
 // tamaño de la cabecera (normalmente vale con 0x28):
 typedef struct HeaderBMP {
     uint32_t size_header;
@@ -57,8 +58,12 @@ typedef struct HeaderBMP {
      */
     uint16_t bit_pixel;
 } HeaderBMP;
+#define HeaderBMP HeaderBMP
+#endif
+
 #define sizeof_header sizeof(HeaderBMP)
 
+#ifndef BMP_Image
 /*
  * Datos de la imagen que escribir tal cual sin alinear los campos.
  * ya que el formato lo requiere.
@@ -95,7 +100,10 @@ typedef struct BMP_Image {
      */
     uint32_t important_colors;
 } BMP_Image;
+#define BMP_Image BMP_Image
+#endif
 
+#ifndef BMP_t
 typedef struct BMP_t
 {
     BMP_Image image_metadata;
@@ -109,6 +117,8 @@ typedef struct BMP_t
     uint32_t bytesPerRowWithPadding;
 } BMP_t;
 #pragma pack(pop)
+#define BMP_t BMP_t
+#endif
 
 void init_BMP_t(BMP_t* image);
 void calc_image(BMP_t* image, uint32_t width, uint32_t height,
