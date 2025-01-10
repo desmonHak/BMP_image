@@ -8,6 +8,34 @@ Esta es una pequeña libreria para leer y escribir imagenes RGBs lineales en for
 
 ----
 
+## Compilacion
+
+La carpeta `example` contiene ejemplos que se pueden autocompilar usando ``linux.mk`` y ``windows.mk``:
+
+```c
+mingw32-make -f windows.mk
+make -f linux.mk
+```
+
+Esto ejecutara los siguientes comandos:
+
+```c
+gcc -std=c99 -I. -masm=intel -D_ExceptionHandler -fdiagnostics-color=always  -O3 -Wno-unused-parameter -Wno-implicit-fallthrough -Wno-type-limits -Wno-unused-variable -Wno-pointer-sign -c BMP_image.c -o BMP_image.o
+ar -rc libBMP_image.a BMP_image.o
+ranlib libBMP_image.a
+ar -t libBMP_image.a
+BMP_image.o
+gcc -std=c99 -I. -masm=intel -D_ExceptionHandler -fdiagnostics-color=always  -O3 -Wno-unused-parameter -Wno-implicit-fallthrough -Wno-type-limits -Wno-unused-variable -Wno-pointer-sign -I. ./examples/example1.c -L. -lBMP_image -o ./out/example1.exe
+gcc -std=c99 -I. -masm=intel -D_ExceptionHandler -fdiagnostics-color=always  -O3 -Wno-unused-parameter -Wno-implicit-fallthrough -Wno-type-limits -Wno-unused-variable -Wno-pointer-sign -I. ./examples/example2.c -L. -lBMP_image -o ./out/example2.exe
+gcc -std=c99 -I. -masm=intel -D_ExceptionHandler -fdiagnostics-color=always  -O3 -Wno-unused-parameter -Wno-implicit-fallthrough -Wno-type-limits -Wno-unused-variable -Wno-pointer-sign -I. ./examples/example3.c -L. -lBMP_image -o ./out/example3.exe
+gcc -std=c99 -I. -masm=intel -D_ExceptionHandler -fdiagnostics-color=always  -O3 -Wno-unused-parameter -Wno-implicit-fallthrough -Wno-type-limits -Wno-unused-variable -Wno-pointer-sign -I. ./examples/example4.c -L. -lBMP_image -o ./out/example4.exe
+```
+
+Donde se genera la libreria `libBMP_image.a` y los ejecutables `example1.exe`, `example2.exe`, `example3.exe` y `example4.exe`. Para eso se usa el comando `ar` encargado de crear la libreria y el comando `ranlib` para actualizar los indices de la libreria.
+Con la libreria generada se puede enlazad usando ``-L<ruta de la libreria> -l<nombre de la libreria>``, el nombre de la lib debe ponerse sin la palabra `lib` ni la extension `.a`.
+
+----
+
 ## Licencia :
 
 ```c
