@@ -96,7 +96,6 @@ void calc_image(BMP_t* image, uint32_t width, uint32_t height,
 
     uint8_t* ptr_cpy_data = *data_with_padding;
 
-    puts("!");
     // copiar los datos de la imagen en crudo generando el padding
     for (int y = 0; y < height; y++) {
         memset(*data_with_padding + y * image->bytesPerRowWithPadding, 0, image->bytesPerRowWithPadding);
